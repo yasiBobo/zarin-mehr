@@ -278,7 +278,7 @@ const Game = ({ userId }) => {
       setTimeout(() => setShowAlert(false), 5000); // Hide the alert after 5 seconds
     } else {
       // Check if data has already been stored
-      axios.get(`http://localhost:5000/api/users/${userId}`)
+      axios.get(`/api/users/${userId}`)
         .then(response => {
           const userData = response.data;
           if (userData.set_login === 1) {
@@ -289,7 +289,7 @@ const Game = ({ userId }) => {
           }
 
           // If set_login is not equal to 1, proceed to store the data
-          axios.post(`http://localhost:5000/api/users/${userId}`, {
+          axios.post(`/api/users/${userId}`, {
             newSetLogin: 1, // Assuming 1 means logged in
             exciteCount,
             learnCount,
@@ -335,7 +335,7 @@ const Game = ({ userId }) => {
     setIsLoading(true); // Set loading state to true
     try {
       // Send a POST request to the backend endpoint with the user ID in the URL path
-      const response = await axios.post(`http://localhost:5000/api/users/${userId}`, {
+      const response = await axios.post(`/api/users/${userId}`, {
         newSetLogin: '88' // New value for set_login
       });
       console.log('Response from backend:', response.data);
