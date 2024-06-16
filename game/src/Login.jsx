@@ -77,7 +77,7 @@ const Login = ({onLoginSuccess}) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', { personalCode });
+      const response = await axios.post('/api/users/login', { personalCode });
       console.log('Response from server:', response); // Log the entire response
       const user = response.data.user;
       console.log('Logged in user:', user); // Log the user object
