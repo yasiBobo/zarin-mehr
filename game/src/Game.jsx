@@ -269,6 +269,7 @@ const Game = ({ userId }) => {
     const exciteCount = selectedBySubject.subOne.length;
     const learnCount = selectedBySubject.subTwo.length;
     const peaceCount = selectedBySubject.subThree.length;
+    const back_url = "https://api.zarrinmehr.zarrinroya.com";
 
     // Check if all counts have been used
     if (exciteCount + learnCount + peaceCount < 15) {
@@ -278,7 +279,7 @@ const Game = ({ userId }) => {
       setTimeout(() => setShowAlert(false), 5000); // Hide the alert after 5 seconds
     } else {
       // Check if data has already been stored
-      axios.get(`/api/users/${userId}`)
+      axios.get(back_url + `/api/users/${userId}`)
         .then(response => {
           const userData = response.data;
           if (userData.set_login === 1) {
@@ -289,7 +290,7 @@ const Game = ({ userId }) => {
           }
 
           // If set_login is not equal to 1, proceed to store the data
-          axios.post(`/api/users/${userId}`, {
+          axios.post(back_url + `/api/users/${userId}`, {
             newSetLogin: 1, // Assuming 1 means logged in
             exciteCount,
             learnCount,
@@ -332,10 +333,11 @@ const Game = ({ userId }) => {
   };
 
   const handleClick = async () => {
+    const back_url = 'https://zarrinmehr.zarrinroya.com/';
     setIsLoading(true); // Set loading state to true
     try {
       // Send a POST request to the backend endpoint with the user ID in the URL path
-      const response = await axios.post(`/api/users/${userId}`, {
+      const response = await axios.post(back_url + `/api/users/${userId}`, {
         newSetLogin: '88' // New value for set_login
       });
       console.log('Response from backend:', response.data);

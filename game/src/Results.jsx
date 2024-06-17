@@ -17,7 +17,8 @@ function Results() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/api/users/${location.state.userId}`);
+        const back_url = "https://api.zarrinmehr.zarrinroya.com";
+        const response = await axios.get(back_url + `/api/users/${location.state.userId}`);
         console.log('User data from API:', response.data); // Check the response in console
         setUserData(response.data.user); // Assuming 'user' object contains userId, first_name, last_name
       } catch (error) {

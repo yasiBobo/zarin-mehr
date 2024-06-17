@@ -67,15 +67,17 @@ function insertInitialData() {
 }
 
 // FETCH USERS
-app.get('/api/users', (req, res) => {
-    db.query('SELECT * FROM users', (err, results) => {
-        if (err) {
-            console.log('Error fetching users from MySQL:', err);
-            res.status(500).send('Error fetching users from MySQL');
-            return;
-        }
-        res.json(results);
-    });
+app.get('/api/users', async (req, res) => {
+    try {
+        const apiUrl = 'https://api.zarrinmehr.zarrinroya.com/';
+        const response = await axios.get(apiUrl);
+
+        // Assuming the API returns JSON data
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching external data:', error.message);
+        res.status(500).json({ error: 'Error fetching external data' });
+    }
 });
 
 // LOGIN
@@ -170,7 +172,7 @@ app.post('/api/users/:userId', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

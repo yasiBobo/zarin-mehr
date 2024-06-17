@@ -10,7 +10,8 @@ function App() {
   const [loggedInUserId, setLoggedInUserId] = useState(null); // State variable to store logged-in user ID
 
   useEffect(() => {
-    axios.get('/api/users')
+    const back_url = "https://api.zarrinmehr.zarrinroya.com";
+    axios.get(back_url + '/api/users')
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   }, []);
