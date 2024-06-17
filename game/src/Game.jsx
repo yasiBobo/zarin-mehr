@@ -6,6 +6,7 @@ import Header from './components/Header';
 import { motion } from 'framer-motion';
 import { IoChevronUpOutline, IoChevronDownOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+import config from './config';
 
 
 // CARD DATA
@@ -269,7 +270,6 @@ const Game = ({ userId }) => {
     const exciteCount = selectedBySubject.subOne.length;
     const learnCount = selectedBySubject.subTwo.length;
     const peaceCount = selectedBySubject.subThree.length;
-    const back_url = "https://api.zarrinmehr.zarrinroya.com";
 
     // Check if all counts have been used
     if (exciteCount + learnCount + peaceCount < 15) {
@@ -279,7 +279,7 @@ const Game = ({ userId }) => {
       setTimeout(() => setShowAlert(false), 5000); // Hide the alert after 5 seconds
     } else {
       // Check if data has already been stored
-      axios.get(back_url + `/api/users/${userId}`)
+      axios.get(`${config.base_url}/api/users/${userId}`)
         .then(response => {
           const userData = response.data;
           if (userData.set_login === 1) {
@@ -290,7 +290,7 @@ const Game = ({ userId }) => {
           }
 
           // If set_login is not equal to 1, proceed to store the data
-          axios.post(back_url + `/api/users/${userId}`, {
+          axios.post(`${config.base_url}/api/users/${userId}`, {
             newSetLogin: 1, // Assuming 1 means logged in
             exciteCount,
             learnCount,
@@ -333,11 +333,10 @@ const Game = ({ userId }) => {
   };
 
   const handleClick = async () => {
-    const back_url = 'https://zarrinmehr.zarrinroya.com/';
     setIsLoading(true); // Set loading state to true
     try {
       // Send a POST request to the backend endpoint with the user ID in the URL path
-      const response = await axios.post(back_url + `/api/users/${userId}`, {
+      const response = await axios.post(`${config.base_url}/api/users/${userId}`, {
         newSetLogin: '88' // New value for set_login
       });
       console.log('Response from backend:', response.data);
@@ -428,14 +427,6 @@ const Game = ({ userId }) => {
 
   return (
     <div className='app-container CARds'>
-
-
-      {/* <h2>Welcome to the Game!</h2> */}
-      {/* {userId && <p>Logged in User ID: {userId}</p>} */}
-      {/* Button to update set_login */}
-      {/* <button onClick={handleClick} disabled={isLoading}> */}
-      {/* {isLoading ? 'Loading...' : 'Update set_login'} */}
-      {/* </button> */}
       <Header />
       {/* CONTENT SECTION */}
       <ListContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>

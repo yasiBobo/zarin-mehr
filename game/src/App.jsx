@@ -3,6 +3,7 @@ import axios from 'axios';
 import Login from './Login.jsx';
 import Game from './Game.jsx';
 import './App.scss';
+import config from './config.js';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -10,8 +11,7 @@ function App() {
   const [loggedInUserId, setLoggedInUserId] = useState(null); // State variable to store logged-in user ID
 
   useEffect(() => {
-    const back_url = "https://api.zarrinmehr.zarrinroya.com";
-    axios.get(back_url + '/api/users')
+    axios.get(`${config.base_url}/api/users`)
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   }, []);

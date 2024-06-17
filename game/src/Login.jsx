@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios'; // Import axios for making HTTP requests
 import LogoImg from "./assets/images/ZarinLogo.svg";
 import UserImg from "./assets/images/UserImg.svg";
+import config from "./config";
 import "./App.scss";
 
 const LoginSection = styled.section`
@@ -77,8 +78,7 @@ const Login = ({ onLoginSuccess }) => {
 
   const handleLogin = async () => {
     try {
-      const back_url = 'https://api.zarrinmehr.zarrinroya.com';
-      const response = await axios.post(back_url + "/api/users/login", { personalCode });
+      const response = await axios.post(`${config.base_url}/api/users/login`, { personalCode });
       console.log('Response from server:', response); // Log the entire response
       const user = response.data.user;
       console.log('Logged in user:', user); // Log the user object
