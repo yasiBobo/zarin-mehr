@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
 const fs = require('fs');
-const config = require('./config');
+const config = require('./sample-config.js');
 
 const app = express();
 
