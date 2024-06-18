@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
 const fs = require('fs');
+const config = require('./config');
 
 const app = express();
 
@@ -12,20 +13,17 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MySQL Connection
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'mysql',
-    database: 'zarin_users'
-});
+const db = mysql.createConnection(config.db);
 
+// Connect to MySQL and handle any connection errors
 db.connect((err) => {
     if (err) {
-        console.log('Error connecting to MySQL database:', err);
+        console.error('Error connecting to the database:', err);
         return;
     }
-    console.log('Connected to MySQL database');
+    console.log('Connected to the MySQL database');
 });
+
 
 function insertInitialData() {
     try {
@@ -172,7 +170,7 @@ app.post('/api/users/:userId', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 443;
+const PORT = config.server.port;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
